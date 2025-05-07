@@ -1,0 +1,78 @@
+Mess_id,Food_item,Category,Cuisine
+1,Butter Chicken,Dinner,North Indian
+1,Naan,Dinner,North Indian
+1,Paneer Tikka,Dinner,North Indian
+1,Dal Makhani,Dinner,North Indian
+2,Masala Dosa,Breakfast,South Indian
+2,Idli,Breakfast,South Indian
+2,Vada,Breakfast,South Indian
+2,Sambhar,Breakfast,South Indian
+3,Pasta,Lunch,Continental
+3,Pizza,Lunch,Continental
+3,Burger,Lunch,Continental
+3,Sandwich,Lunch,Continental
+4,Chole Bhature,Lunch,North Indian
+4,Lassi,Beverages,North Indian
+4,Paratha,Breakfast,North Indian
+5,Idli,Breakfast,South Indian
+5,Dosa,Breakfast,South Indian
+5,Pongal,Breakfast,South Indian
+6,Appam,Breakfast,South Indian
+6,Fish Curry,Dinner,South Indian
+6,Kerala Parotta,Dinner,South Indian
+7,Macher Jhol,Lunch,Bengali
+7,Rasgulla,Dessert,Bengali
+7,Mishti Doi,Dessert,Bengali
+8,Dhokla,Snacks,Gujarati
+8,Thepla,Breakfast,Gujarati
+8,Khandvi,Snacks,Gujarati
+9,Biryani,Lunch,South Indian
+9,Hyderabadi Haleem,Dinner,South Indian
+9,Mirchi Ka Salan,Dinner,South Indian
+10,Fish Curry,Lunch,Goan
+10,Vindaloo,Dinner,Goan
+10,Bebinca,Dessert,Goan
+101,"Paneer butter masala,chapati",panjabi,Veg
+102,"Paneer butter masala,chapati",panjabi,Veg
+102,"Dal Makhani,chapati",panjabi,Veg
+105,"Batata bhaji,chapati",maharastrian,Veg
+101,"Batata bhaji,chapati",maharastrian,Veg
+107,misal pav,kolhapuri,Veg
+106,misal pav,kolhapuri,Veg
+105,"bhendi fry,chapati",kolhapuri,Veg
+104,"shevbhaji,chapati",kolhapuri,Veg
+102,shabudana khichadi,puneri,Veg
+103,shabudana khichadi,puneri,Veg
+105,puran poli,puneri,Veg
+104,puran poli,puneri,Veg
+106,puran poli,puneri,Veg
+101,thalipeeth,puneri,Veg
+103,thalipeeth,puneri,Veg
+105,thalipeeth,puneri,Veg
+105,"mataki usal,chapati",puneri,Veg
+102,"mataki usal,chapati",puneri,Veg
+101,"mataki usal,chapati",puneri,Veg
+108,pithla bhakari,puneri,Veg
+101,bharli vangi,puneri,Veg
+105,aloo paratha,puneri,Veg
+105,harabhara usal,puneri,Veg
+106,misal pav,puneri,Veg
+111,"chavali bhaji,chapati",puneri,Veg
+110,"palak bhaji,chapati",puneri,Veg
+102,"chicken curry,chapati",kolhapuri,Non-Veg
+101,anda bhurji,kolhapuri,Non-Veg
+102,anda bhurji,kolhapuri,Non-Veg
+103,fish fry,kolhapuri,Non-Veg
+104,fish fry,kolhapuri,Non-Veg
+101,fish fry,kolhapuri,Non-Veg
+102,kombdi vade,kolhapuri,Non-Veg
+104,chicken rassa,puneri,Non-Veg
+103,chicken rassa,puneri,Non-Veg
+105,chicken rassa,puneri,Non-Veg
+105,anda bhurji,puneri,Non-Veg
+104,anda bhurji,puneri,Non-Veg
+101,anda bhurji,puneri,Non-Veg
+109,anda bhurji,puneri,Non-Veg
+110,chicken pulav,puneri,Non-Veg
+101,mutton,puneri,Non-Veg
+106,paneer butter masala deluxe,panjabi,Veg

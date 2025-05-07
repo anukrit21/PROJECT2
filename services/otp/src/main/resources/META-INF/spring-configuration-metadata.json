@@ -1,0 +1,40 @@
+{
+  "properties": [
+    {
+      "name": "twilio.account-sid",
+      "type": "java.lang.String",
+      "description": "Twilio account SID"
+    },
+    {
+      "name": "twilio.auth-token",
+      "type": "java.lang.String",
+      "description": "Twilio auth token"
+    },
+    {
+      "name": "twilio.trial-number",
+      "type": "java.lang.String",
+      "description": "Twilio trial number"
+    },
+    {
+      "name": "app.name",
+      "type": "java.lang.String",
+      "description": "Application display name"
+    },
+    {
+      "name": "management.endpoints.web.exposure.include",
+      "type": "java.lang.String",
+      "description": "List of actuator endpoints to expose"
+    },
+    {
+      "name": "management.endpoint.health.show-details",
+      "type": "java.lang.String",
+      "description": "When to show full health details (never, always, when-authorized)"
+    },
+    {
+      "name": "spring.cloud.config.fail-fast",
+      "type": "java.lang.Boolean",
+      "description": "Whether to fail startup if the config server cannot be reached"
+    }
+  ],
+  "hints": []
+} 

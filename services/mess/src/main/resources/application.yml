@@ -1,0 +1,148 @@
+spring:
+  application:
+    name: mess-service
+  config:
+    import: optional:configserver:http://config-server:8888
+  cloud:
+    config:
+      fail-fast: true
+      retry:
+        initial-interval: 1500
+        max-attempts: 10000
+        max-interval: 2000
+    compatibility-verifier:
+      enabled: false
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:DESKTOP-FUSUCHQ}:${DB_PORT:5432}/demoapp_mess
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:Nut@n803212}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 20000
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+    consumer:
+      group-id: mess-service-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "*"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  resources:
+    static-locations: classpath:/static/, classpath:/ml/
+    
+  # Disable Kafka for standalone testing
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.kafka.KafkaHealthContributorAutoConfiguration
+
+server:
+  port: ${SERVER_PORT:8091}
+  error:
+    include-message: always
+    include-binding-errors: always
+
+eureka:
+  client:
+    enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    hostname: ${spring.application.name}
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      messService:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+        permittedNumberOfCallsInHalfOpenState: 3
+        registerHealthIndicator: true
+  retry:
+    instances:
+      messService:
+        maxAttempts: 3
+        waitDuration: 1000
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
+  ratelimiter:
+    instances:
+      messService:
+        limitForPeriod: 100
+        limitRefreshPeriod: 1s
+        timeoutDuration: 0s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+      validate-group-membership: false
+  health:
+    circuitbreakers:
+      enabled: true
+    ratelimiters:
+      enabled: true
+    kafka:
+      enabled: false
+
+logging:
+  level:
+    com.demoApp.mess: DEBUG
+    org.springframework.web: INFO
+    org.hibernate: INFO
+
+jwt:
+  secret: ${JWT_SECRET:defaultSecretKey12345678901234567890}
+  expiration: 86400000
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+mess:
+  pagination:
+    default-page-size: 20
+    max-page-size: 100
+  kafka:
+    topics:
+      mess-events: mess-events
+      menu-updates: menu-updates
+  cache:
+    menu-ttl: 3600 # 1 hour in seconds
+  recommendation:
+    enabled: true
+    ml-files:
+      mess-master: ml/mess_master.csv
+      menu-mess: ml/menu_mess.csv
+      ratings: ml/updated_dataset.csv
+    default-category: All
+    default-cuisine: All
+    min-score-threshold: 3.0 

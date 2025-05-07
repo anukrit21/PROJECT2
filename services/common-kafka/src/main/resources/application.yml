@@ -1,0 +1,103 @@
+spring:
+  application:
+    name: common-kafka
+  config:
+    import: optional:configserver:http://config-server:8888
+  cloud:
+    compatibility-verifier:
+      enabled: false
+    config:
+      fail-fast: true
+      retry:
+        initial-interval: 1500
+        max-attempts: 10000
+        max-interval: 2000
+      enabled: false
+    discovery:
+      enabled: false
+  kafka:
+    enabled: false  # Disable Kafka completely for now
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+    consumer:
+      group-id: common-kafka-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        [spring.json.trusted.packages]: "*"
+        [max.poll.interval.ms]: 300000
+        [max.poll.records]: 500
+        [session.timeout.ms]: 60000
+        [heartbeat.interval.ms]: 20000
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        [linger.ms]: 20
+        [batch.size]: 32768
+        [compression.type]: snappy
+        [acks]: all
+        [retries]: 3
+        [delivery.timeout.ms]: 120000
+    admin:
+      auto-create: false  # Disable auto topic creation
+      properties:
+        [cleanup.policy]: compact
+        [retention.ms]: 604800000  # 7 days
+        [segment.bytes]: 1073741824  # 1GB
+  # Disable JPA auto-configuration
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+      - org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration
+      - org.springframework.boot.autoconfigure.jdbc.DataSourceTransactionManagerAutoConfiguration
+      - org.springframework.boot.actuate.autoconfigure.kafka.KafkaHealthContributorAutoConfiguration
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+      validate-group-membership: false  # Disable validation of health contributors
+      group:
+        kafka:
+          include: # Empty to avoid validation error
+  health:
+    kafka:
+      enabled: false # Disable Kafka health checks
+
+logging:
+  level:
+    [org.apache.kafka]: WARN
+    [org.springframework.kafka]: WARN
+    [com.demoApp.commonkafka]: INFO
+
+kafka:
+  topics:
+    user-events: user-events
+    order-events: order-events
+    payment-events: payment-events
+    delivery-events: delivery-events
+    notification-events: notification-events
+  retry:
+    max-attempts: 3
+    initial-interval: 1000
+    multiplier: 2.0
+    max-interval: 10000
+
+eureka:
+  client:
+    enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    hostname: ${spring.application.name}
+
+server:
+  port: 8085

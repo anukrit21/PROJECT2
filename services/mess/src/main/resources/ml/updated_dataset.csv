@@ -1,0 +1,158 @@
+User_id,Mess_id,Cuisine,Category,Food_item,Rating,Order_count
+1,101,panjabi,Veg,"Paneer butter masala,chapati",4,10
+2,102,panjabi,Veg,"Dal Makhani,chapati",5,11
+3,103,panjabi,Veg,Veg Biryani,2.9,8
+4,101,maharastrian,Veg,"Batata bhaji,chapati",4,7
+6,106,khandesh,Veg,"Dal,Rice,shevbhaji,chapati",2,15
+7,101,panjabi,Veg,"Dal Makhani,chapati",2.2,2
+1,104,panjabi,Veg,"Paneer butter masala,chapati",4,8
+2,101,panjabi,Veg,"Paneer butter masala,chapati",5,10
+6,101,panjabi,Veg,"Paneer butter masala,chapati",4.5,11
+2,102,panjabi,Veg,"Paneer butter masala,chapati",3,5
+1,101,maharastrian,Veg,"Batata bhaji,chapati",2.4,7
+2,105,maharastrian,Veg,"Batata bhaji,chapati",3.4,5
+2,106,khandesh,Veg,"Dal,Rice,shevbhaji,chapati",3.5,15
+4,106,khandesh,Veg,"Dal,Rice,shevbhaji,chapati",2.6,15
+9,105,maharastrian,Veg,"Batata bhaji,chapati",1.6,5
+1,106,khandesh,Veg,"Dal,Rice,shevbhaji,chapati",4.2,15
+7,107,kolhapuri,Veg,misal pav,2.9,20
+4,107,kolhapuri,Veg,misal pav,4.7,20
+3,107,kolhapuri,Veg,misal pav,5,20
+5,106,kolhapuri,Veg,misal pav,3.4,10
+6,106,kolhapuri,Veg,misal pav,2.5,10
+1,105,kolhapuri,Veg,"bhendi fry,chapati",1.9,15
+2,105,kolhapuri,Veg,"bhendi fry,chapati",3.8,15
+6,105,kolhapuri,Veg,"bhendi fry,chapati",4.5,15
+2,105,kolhapuri,Veg,"bhendi fry,chapati",3.6,15
+1,104,kolhapuri,Veg,"shevbhaji,chapati",4.5,12
+4,104,kolhapuri,Veg,"shevbhaji,chapati",3.6,12
+5,102,puneri,Veg,shabudana khichadi,4.5,25
+7,102,puneri,Veg,shabudana khichadi,4.1,25
+4,102,puneri,Veg,shabudana khichadi,4,25
+3,103,puneri,Veg,shabudana khichadi,3,20
+1,103,puneri,Veg,shabudana khichadi,4,20
+2,103,puneri,Veg,shabudana khichadi,1,20
+5,105,puneri,Veg,puran poli,2,18
+4,105,puneri,Veg,puran poli,3.5,18
+3,105,puneri,Veg,puran poli,4.6,18
+3,104,puneri,Veg,puran poli,2,10
+6,104,puneri,Veg,puran poli,3,10
+7,104,puneri,Veg,puran poli,5,10
+6,106,puneri,Veg,puran poli,4,8
+5,106,puneri,Veg,puran poli,3.5,8
+4,101,puneri,Veg,thalipeeth,4.5,21
+8,101,puneri,Veg,thalipeeth,4.6,21
+2,101,puneri,Veg,thalipeeth,4.7,21
+1,102,puneri,Veg,thalipeeth,3.8,25
+7,102,puneri,Veg,thalipeeth,4.6,25
+5,103,puneri,Veg,thalipeeth,2,5
+2,103,puneri,Veg,thalipeeth,3,5
+4,103,puneri,Veg,thalipeeth,1,5
+6,105,puneri,Veg,thalipeeth,4.5,16
+2,105,puneri,Veg,"mataki usal,chapati",4.6,16
+5,105,puneri,Veg,"mataki usal,chapati",2.7,16
+4,105,puneri,Veg,"mataki usal,chapati",3.6,16
+3,102,puneri,Veg,"mataki usal,chapati",2.4,9
+4,102,puneri,Veg,"mataki usal,chapati",5,9
+4,101,puneri,Veg,"mataki usal,chapati",4,7
+7,101,puneri,Veg,"mataki usal,chapati",3,7
+2,102,puneri,Veg,"mataki usal,chapati",2,5
+4,102,puneri,Veg,"mataki usal,chapati",1.2,5
+5,108,puneri,Veg,pithla bhakari,2,4
+9,108,puneri,Veg,pithla bhakari,2,4
+10,108,puneri,Veg,pithla bhakari,2,4
+12,101,puneri,Veg,bharli vangi,1.5,5
+11,101,puneri,Veg,bharli vangi,1.4,5
+5,101,puneri,Veg,bharli vangi,3,5
+4,105,puneri,Veg,aloo paratha,1.9,6
+5,105,puneri,Veg,aloo paratha,2.2,6
+15,105,puneri,Veg,aloo paratha,2,6
+12,106,puneri,Veg,misal pav,2.2,3
+13,106,puneri,Veg,misal pav,2,3
+14,105,puneri,Veg,harabhara usal,1,4
+10,105,puneri,Veg,harabhara usal,2.1,4
+2,105,puneri,Veg,harabhara usal,1.5,4
+16,111,puneri,Veg,"chavali bhaji,chapati",1.5,2
+14,111,puneri,Veg,"chavali bhaji,chapati",1.9,2
+20,110,puneri,Veg,"palak bhaji,chapati",1.2,4
+21,110,puneri,Veg,"palak bhaji,chapati",2,4
+2,102,kolhapuri,Non-Veg,"chicken curry,chapati",2.5,9
+6,102,kolhapuri,Non-Veg,"chicken curry,chapati",3.9,9
+1,102,kolhapuri,Non-Veg,"chicken curry,chapati",5,9
+5,101,kolhapuri,Non-Veg,anda bhurji,4.5,18
+2,101,kolhapuri,Non-Veg,anda bhurji,3,18
+7,101,kolhapuri,Non-Veg,anda bhurji,5,18
+5,102,kolhapuri,Non-Veg,anda bhurji,4,10
+6,102,kolhapuri,Non-Veg,anda bhurji,3,10
+3,103,kolhapuri,Non-Veg,fish fry,4.3,12
+7,103,kolhapuri,Non-Veg,fish fry,3.4,12
+6,104,kolhapuri,Non-Veg,fish fry,5,16
+5,104,kolhapuri,Non-Veg,fish fry,4.9,16
+5,101,kolhapuri,Non-Veg,fish fry,3.5,10
+4,101,kolhapuri,Non-Veg,fish fry,4,10
+6,101,kolhapuri,Non-Veg,mutton kheema,5,25
+1,101,kolhapuri,Non-Veg,mutton kheema,4,25
+5,101,kolhapuri,Non-Veg,mutton kheema,5,25
+5,102,kolhapuri,Non-Veg,kombdi vade,2.9,16
+3,102,kolhapuri,Non-Veg,kombdi vade,4,16
+7,102,kolhapuri,Non-Veg,kombdi vade,4.1,16
+2,104,puneri,Non-Veg,chicken rassa,2,6
+3,104,puneri,Non-Veg,chicken rassa,2.2,6
+5,104,puneri,Non-Veg,chicken rassa,4,6
+2,103,puneri,Non-Veg,chicken rassa,5,4
+3,103,puneri,Non-Veg,chicken rassa,3.5,4
+5,102,puneri,Non-Veg,chicken rassa,2.4,7
+2,102,puneri,Non-Veg,chicken rassa,4.5,7
+6,102,puneri,Non-Veg,chicken rassa,3,7
+5,105,puneri,Non-Veg,chicken rassa,5,15
+2,105,puneri,Non-Veg,anda bhurji,4.5,15
+1,105,puneri,Non-Veg,anda bhurji,3.2,15
+1,104,puneri,Non-Veg,anda bhurji,3.4,11
+2,104,puneri,Non-Veg,anda bhurji,4.5,11
+3,102,puneri,Non-Veg,anda bhurji,4.2,22
+5,102,puneri,Non-Veg,anda bhurji,4.3,22
+2,101,puneri,Non-Veg,anda bhurji,4,30
+5,101,puneri,Non-Veg,anda bhurji,3.4,30
+6,101,puneri,Non-Veg,anda bhurji,2.1,30
+2,109,puneri,Non-Veg,anda bhurji,1.2,2
+4,109,puneri,Non-Veg,anda bhurji,1,2
+7,109,puneri,Non-Veg,anda bhurji,1.3,2
+14,110,puneri,Non-Veg,chicken pulav,1.2,3
+23,110,puneri,Non-Veg,chicken pulav,1,3
+21,109,panjabi,Veg,Paneer Masala,4,9
+20,108,panjabi,Veg,Paneer Masala,3.5,10
+14,108,panjabi,Veg,Shahi Paneer,4,11
+15,107,panjabi,Veg,Shahi Paneer,3.7,8
+1,Butter Chicken,Dinner,North Indian,4.8,120
+1,Naan,Dinner,North Indian,4.5,150
+1,Paneer Tikka,Dinner,North Indian,4.7,95
+1,Dal Makhani,Dinner,North Indian,4.4,80
+2,Masala Dosa,Breakfast,South Indian,4.9,200
+2,Idli,Breakfast,South Indian,4.6,180
+2,Vada,Breakfast,South Indian,4.5,150
+2,Sambhar,Breakfast,South Indian,4.3,170
+3,Pasta,Lunch,Continental,4.4,110
+3,Pizza,Lunch,Continental,4.6,140
+3,Burger,Lunch,Continental,4.3,130
+3,Sandwich,Lunch,Continental,4.1,90
+4,Chole Bhature,Lunch,North Indian,4.7,160
+4,Lassi,Beverages,North Indian,4.5,130
+4,Paratha,Breakfast,North Indian,4.4,120
+5,Idli,Breakfast,South Indian,4.2,100
+5,Dosa,Breakfast,South Indian,4.4,120
+5,Pongal,Breakfast,South Indian,4.1,90
+6,Appam,Breakfast,South Indian,4.5,110
+6,Fish Curry,Dinner,South Indian,4.6,130
+6,Kerala Parotta,Dinner,South Indian,4.4,100
+7,Macher Jhol,Lunch,Bengali,4.3,80
+7,Rasgulla,Dessert,Bengali,4.7,150
+7,Mishti Doi,Dessert,Bengali,4.6,140
+8,Dhokla,Snacks,Gujarati,4.2,90
+8,Thepla,Breakfast,Gujarati,4.3,100
+8,Khandvi,Snacks,Gujarati,4.4,110
+9,Biryani,Lunch,South Indian,4.8,200
+9,Hyderabadi Haleem,Dinner,South Indian,4.7,180
+9,Mirchi Ka Salan,Dinner,South Indian,4.5,150
+10,Fish Curry,Lunch,Goan,4.6,120
+10,Vindaloo,Dinner,Goan,4.7,130
+10,Bebinca,Dessert,Goan,4.5,100

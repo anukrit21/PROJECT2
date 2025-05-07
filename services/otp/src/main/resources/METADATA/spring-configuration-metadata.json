@@ -1,0 +1,24 @@
+{
+  "properties": [
+    {
+      "name": "twilio.account-sid",
+      "type": "java.lang.String",
+      "description": "Twilio account SID"
+    },
+    {
+      "name": "twilio.auth-token",
+      "type": "java.lang.String",
+      "description": "Twilio auth token"
+    },
+    {
+      "name": "twilio.trial-number",
+      "type": "java.lang.String",
+      "description": "Twilio trial number"
+    },
+    {
+      "name": "app.name",
+      "type": "java.lang.String",
+      "description": "Application display name"
+    }
+  ]
+}

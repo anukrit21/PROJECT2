@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .success-container {
+            max-width: 600px;
+            margin: 100px auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+        }
+        .success-header {
+            background: #4a148c;
+            color: white;
+            padding: 20px;
+        }
+        .success-body {
+            padding: 30px;
+        }
+        .success-icon {
+            font-size: 64px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+        .amount {
+            font-size: 24px;
+            font-weight: 600;
+            color: #4a148c;
+            margin: 15px 0;
+        }
+        .details {
+            margin: 20px 0;
+            text-align: left;
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 5px;
+        }
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .btn-primary {
+            background-color: #4a148c;
+            border-color: #4a148c;
+        }
+        .btn-primary:hover {
+            background-color: #6a1b9a;
+            border-color: #6a1b9a;
+        }
+    </style>
+</head>
+<body>
+    <div class="success-container">
+        <div class="success-header">
+            <h2>Payment Successful</h2>
+        </div>
+        
+        <div class="success-body">
+            <div class="success-icon">✓</div>
+            
+            <h3>Thank You for Your Payment!</h3>
+            
+            <p>Your payment has been processed successfully.</p>
+            
+            <div class="amount" th:text="${#numbers.formatDecimal(payment.amount, 1, 2) + ' ' + payment.currency}">₹1000.00</div>
+            
+            <div class="details">
+                <div class="detail-row">
+                    <strong>Payment ID:</strong>
+                    <span th:text="${payment.paymentId}">pay_123456789</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Date:</strong>
+                    <span th:text="${#temporals.format(payment.completedAt, 'dd MMM yyyy, HH:mm')}">01 Jun 2023, 12:30</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Order Reference:</strong>
+                    <span th:text="${payment.orderReference}">ORD123456</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Payment Method:</strong>
+                    <span th:text="${payment.paymentMethod}">Credit Card</span>
+                </div>
+                
+                <div class="detail-row">
+                    <strong>Status:</strong>
+                    <span th:text="${payment.status}" style="color: #4CAF50;">COMPLETED</span>
+                </div>
+            </div>
+            
+            <p>A receipt has been sent to your email address.</p>
+            
+            <div class="mt-4">
+                <a href="/" class="btn btn-primary me-2">Back to Home</a>
+                <a th:href="${payment.receiptUrl}" class="btn btn-outline-secondary" target="_blank">View Receipt</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

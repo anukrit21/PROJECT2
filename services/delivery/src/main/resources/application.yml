@@ -1,0 +1,147 @@
+spring:
+  application:
+    name: delivery-service
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    config:
+      fail-fast: false
+      retry:
+        initial-interval: 1000
+        max-attempts: 6
+        max-interval: 2000
+        multiplier: 1.1
+  datasource:
+    url: jdbc:postgresql://localhost:5432/demoapp_delivery
+    username: postgres
+    password: Nut@n803212
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 5
+      idle-timeout: 300000
+      connection-timeout: 20000
+      max-lifetime: 1200000
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  main:
+    allow-bean-definition-overriding: true
+
+server:
+  port: ${SERVER_PORT:8086}
+  error:
+    include-message: always
+    include-binding-errors: always
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    hostname: ${spring.application.name}
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      deliveryService:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+        permittedNumberOfCallsInHalfOpenState: 3
+        registerHealthIndicator: true
+  retry:
+    instances:
+      deliveryService:
+        maxAttempts: 3
+        waitDuration: 1000
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
+  ratelimiter:
+    instances:
+      deliveryService:
+        limitForPeriod: 100
+        limitRefreshPeriod: 1s
+        timeoutDuration: 0s
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+    ratelimiters:
+      enabled: true
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    com.demoApp.delivery: INFO
+    org.springframework.web: INFO
+
+jwt:
+  secret: ${JWT_SECRET}
+  expiration: 86400000
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+
+delivery:
+  status:
+    pending: PENDING
+    processing: PROCESSING
+    shipped: SHIPPED
+    delivered: DELIVERED
+    cancelled: CANCELLED
+  delivery:
+    tracking:
+      update-interval: 30 # seconds
+    assignment:
+      max-radius: 5000 # meters
+      max-active-orders: 3
+  maps:
+    api-key: ${MAPS_API_KEY:defaultMapKey}
+    distance-matrix-url: https://maps.googleapis.com/maps/api/distancematrix/json
+    geocoding-url: https://maps.googleapis.com/maps/api/geocode/json
+  pagination:
+    default-page-size: 20
+    max-page-size: 100
+  kafka:
+    topics:
+      delivery-status: delivery-status
+      delivery-tracking: delivery-tracking
+  cache:
+    caffeine:
+      spec: maximumSize=500,expireAfterWrite=300s
+
+kafka:
+  bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+  consumer:
+    group-id: delivery-service-group
+    auto-offset-reset: earliest
+    key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+  producer:
+    key-serializer: org.apache.kafka.common.serialization.StringSerializer
+    value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
+app:
+  delivery:
+    default-page-size: 20
+    max-page-size: 100 

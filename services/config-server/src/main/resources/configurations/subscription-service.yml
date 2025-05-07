@@ -1,0 +1,53 @@
+spring:
+  application:
+    name: subscription-service
+  datasource:
+    url: jdbc:postgresql://postgres:5432/demoapp_subscription
+    username: postgres
+    password: Nut@n803212
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  kafka:
+    bootstrap-servers: kafka:29092
+    consumer:
+      group-id: subscription-service-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: com.demoApp.*
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+server:
+  port: 8089
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://discovery:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+app:
+  jwt:
+    secret: ZGVtb0FwcFNlY3JldEtleTEyMzQ1Njc4OTAxMjM0NTY3ODkw
+    expiration: 86400000
+  subscription:
+    renewal:
+      reminder-days: 3
+      grace-period-days: 2
+    payment:
+      retry-attempts: 3
+      retry-interval: 86400 # 24 hours in seconds
+    notification:
+      email-enabled: true
+      sms-enabled: false 

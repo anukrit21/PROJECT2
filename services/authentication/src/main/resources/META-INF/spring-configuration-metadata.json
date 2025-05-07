@@ -1,0 +1,65 @@
+{
+  "properties": [
+    {
+      "name": "app.jwt.secret",
+      "type": "java.lang.String",
+      "description": "Secret key used for JWT token signing"
+    },
+    {
+      "name": "app.jwt.expiration",
+      "type": "java.lang.Long",
+      "description": "JWT token expiration time in milliseconds"
+    },
+    {
+      "name": "app.security.mfa.issuer",
+      "type": "java.lang.String",
+      "description": "Issuer name for MFA (Multi-Factor Authentication) setup"
+    },
+    {
+      "name": "app.security.account.max-failed-attempts",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of failed login attempts before account is locked"
+    },
+    {
+      "name": "app.security.account.lock-time-minutes",
+      "type": "java.lang.Integer",
+      "description": "Duration in minutes for which an account remains locked after exceeding max failed attempts"
+    },
+    {
+      "name": "app.url",
+      "type": "java.lang.String",
+      "description": "Base URL of the application, used for generating links"
+    },
+    {
+      "name": "management.endpoints.web.exposure.include",
+      "type": "java.lang.String",
+      "description": "List of actuator endpoints to expose"
+    },
+    {
+      "name": "management.endpoint.health.show-details",
+      "type": "java.lang.String",
+      "description": "When to show full health details (never, always, when-authorized)"
+    },
+    {
+      "name": "management.endpoint.health.status.order",
+      "type": "java.lang.String",
+      "description": "Comma-separated list of health statuses in order of severity"
+    },
+    {
+      "name": "spring.cloud.config.fail-fast",
+      "type": "java.lang.Boolean",
+      "description": "Whether to fail startup if the config server cannot be reached"
+    },
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "description": "Secret key used for JWT token signing (deprecated, use app.jwt.secret instead)"
+    },
+    {
+      "name": "jwt.expiration",
+      "type": "java.lang.Long",
+      "description": "JWT token expiration time in milliseconds (deprecated, use app.jwt.expiration instead)"
+    }
+  ],
+  "hints": []
+} 

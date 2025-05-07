@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: mess-service
+  datasource:
+    url: jdbc:postgresql://postgres:5432/demoapp_mess
+    username: postgres
+    password: Nut@n803212
+    driver-class-name: org.postgresql.Driver
+  kafka:
+    consumer:
+      group-id: mess-service-group
+
+server:
+  port: 8084
+
+app:
+  image:
+    storage-path: /app/mess-images
+    allowed-types: jpg,jpeg,png
+    max-size: 5MB
+  rating:
+    min: 1
+    max: 5
+  cache:
+    menu-ttl: 1800
+    reviews-ttl: 3600 

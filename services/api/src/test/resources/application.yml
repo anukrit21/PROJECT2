@@ -1,0 +1,24 @@
+spring:
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    config:
+      enabled: false
+      discovery:
+        enabled: false  # Set to false if not using service discovery for Config Server
+  main:
+    allow-bean-definition-overriding: true
+    web-application-type: reactive
+
+eureka:
+  client:
+    enabled: true  # Enable Eureka client
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics

@@ -1,0 +1,56 @@
+spring:
+  profiles:
+    active: native
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/configurations
+        git:
+          uri: ${CONFIG_GIT_URI:}
+          default-label: ${CONFIG_GIT_BRANCH:main}
+          username: ${CONFIG_GIT_USERNAME:}
+          password: ${CONFIG_GIT_PASSWORD:}
+          clone-on-start: true
+          force-pull: true
+      retry:
+        initial-interval: 1000
+        max-interval: 2000
+        max-attempts: 6
+        multiplier: 1.1
+      fail-fast: true
+
+server:
+  port: 8888
+
+eureka:
+  client:
+    enabled: false
+  instance:
+    prefer-ip-address: true
+    hostname: ${spring.application.name}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+          - metrics
+          - prometheus
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+
+logging:
+  level:
+    org.springframework.cloud.config: DEBUG
+    org.springframework.boot.autoconfigure: INFO
+    com.netflix.eureka: DEBUG
+    com.netflix.discovery: DEBUG

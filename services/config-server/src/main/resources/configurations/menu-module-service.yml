@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: menu-module-service
+  datasource:
+    url: jdbc:postgresql://localhost:5432/demoapp_menu_module
+    username: postgres
+    password: Nut@n803212
+    driver-class-name: org.postgresql.Driver
+  kafka:
+    consumer:
+      group-id: menu-module-service-group
+
+server:
+  port: 8083
+
+app:
+  file-storage:
+    location: /app/menu-images
+    max-file-size: 5MB
+  cache:
+    ttl: 3600 

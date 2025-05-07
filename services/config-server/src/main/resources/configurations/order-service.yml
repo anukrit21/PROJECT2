@@ -1,0 +1,60 @@
+spring:
+  application:
+    name: order-service
+  datasource:
+    url: jdbc:postgresql://172.30.60.1:5432/demoapp_order
+    username: postgres
+    password: Nut@n803212
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  kafka:
+    bootstrap-servers: localhost:9092
+
+server:
+  port: 8085
+
+kafka:
+  consumer:
+    group-id: order-service-group
+    auto-offset-reset: earliest
+  topics:
+    order-status: order-status-updates
+    payment-status: payment-status-updates
+
+order:
+  expiry:
+    pending-payment: 900  # 15 minutes in seconds
+    preparation: 1800     # 30 minutes in seconds
+  notification:
+    enabled: true
+    reminder-interval: 300  # 5 minutes in seconds
+  cache:
+    ttl:
+      active-orders: 60    # 1 minute in seconds
+      order-history: 3600  # 1 hour in seconds
+
+resilience4j:
+  retry:
+    instances:
+      payment-service:
+        max-attempts: 3
+        wait-duration: 1s
+      notification-service:
+        max-attempts: 2
+        wait-duration: 500ms
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: always 

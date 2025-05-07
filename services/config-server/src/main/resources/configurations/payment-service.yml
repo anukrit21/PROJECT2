@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: payment-service
+  datasource:
+    url: jdbc:postgresql://postgres:5432/demoapp_payment
+    username: postgres
+    password: Nut@n803212
+    driver-class-name: org.postgresql.Driver
+  kafka:
+    consumer:
+      group-id: payment-service-group
+
+server:
+  port: 8087
+
+app:
+  payment:
+    gateway:
+      url: https://payment.demoapp.com
+      timeout: 30000
+    retry:
+      max-attempts: 3
+      backoff: 1000
+  security:
+    encryption-key: ${PAYMENT_ENCRYPTION_KEY:defaultEncryptionKey}
+  transaction:
+    expiry: 900 # 15 minutes in seconds 

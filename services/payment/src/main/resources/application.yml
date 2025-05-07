@@ -1,0 +1,134 @@
+server:
+  port: 8087
+  error:
+    include-message: always
+    include-binding-errors: always
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: payment-service
+  config:
+    import: optional:configserver:http://192.168.0.105:8889
+  datasource:
+    url: jdbc:postgresql://192.168.0.105:5432/demoapp_payment
+    username: postgres
+    password: Nut@n803212
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS:kafka:29092}
+    consumer:
+      group-id: payment-service-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            trusted:
+              packages: com.demoApp.*
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    encoding: UTF-8
+    cache: false
+  web:
+    resources:
+      static-locations: classpath:/static/
+      chain:
+        strategy:
+          content:
+            enabled: true
+  cloud:
+    config:
+      fail-fast: false
+      retry:
+        initial-interval: 1000
+        max-attempts: 6
+        
+        max-interval: 5000  # or any value > initial-interval
+        multiplier: 1.1
+
+# Discovery client (rename as needed if not using Eureka)
+discovery:
+  url: http://discovery:8761/eureka/
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://192.168.0.105:8761/eureka/
+  instance:
+    prefer-ip-address: true
+    hostname: ${spring.application.name}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  health:
+    circuitbreakers:
+      enabled: true
+
+resilience4j:
+  circuitbreaker:
+    instances:
+      paymentService:
+        slidingWindowSize: 10
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10000
+        permittedNumberOfCallsInHalfOpenState: 3
+  retry:
+    instances:
+      paymentService:
+        maxAttempts: 3
+        waitDuration: 1000
+        enableExponentialBackoff: true
+        exponentialBackoffMultiplier: 2
+
+stripe:
+  apiKey: ${STRIPE_API_KEY:sk_test_...}
+  webhookSecret: ${STRIPE_WEBHOOK_SECRET:whsec_your_webhook_secret}
+  publicKey: ${STRIPE_PUBLISHABLE_KEY:pk_test_...}
+  secretKey: ${STRIPE_SECRET_KEY:sk_test_...}
+
+payment:
+  apiKey: ${PAYMENT_GATEWAY_API_KEY:test_key}
+  secret: ${PAYMENT_GATEWAY_SECRET:test_secret}
+  gateway:
+    url: https://payment.demoapp.com
+    timeout: 30000
+  retry:
+    max-attempts: 3
+    backoff: 1000
+
+app:
+  jwt:
+    secret: ${JWT_SECRET:ZGVtb0FwcFNlY3JldEtleTEyMzQ1Njc4OTAxMjM0NTY3ODkw}
+    expiration: ${JWT_EXPIRATION:86400000}
+  security:
+    encryption-key: ${PAYMENT_ENCRYPTION_KEY:defaultEncryptionKey}
+  transaction:
+    expiry: 900 # 15 minutes in seconds
+
+logging:
+  level:
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    com.demoApp.payment: INFO

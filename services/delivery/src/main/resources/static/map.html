@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Tracking - DemoApp</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .tracking-info {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1;
+            background-color: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            width: 300px;
+        }
+        .tracking-info h2 {
+            margin-top: 0;
+        }
+        .status {
+            font-weight: bold;
+            color: #4285F4;
+        }
+        .eta {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="tracking-info">
+        <h2>Order Tracking</h2>
+        <div>Order ID: <span id="orderId">-</span></div>
+        <div>Status: <span id="status" class="status">Loading...</span></div>
+        <div>From: <span id="pickup">-</span></div>
+        <div>To: <span id="destination">-</span></div>
+        <div class="eta">ETA: <span id="eta">Calculating...</span></div>
+        <div>Distance: <span id="distance">-</span></div>
+        <div>Delivery Person: <span id="deliveryPerson">-</span></div>
+        <div>Vehicle: <span id="vehicle">-</span></div>
+    </div>
+    <div id="map"></div>
+    <script>
+        // Get deliveryId from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const deliveryId = urlParams.get('deliveryId');
+        if (!deliveryId) {
+            alert('Delivery ID is required');
+            document.getElementById('status').textContent = 'Error: No delivery ID provided';
+            window.location.href = '/error.html?errorMessage=No delivery ID provided';
+        }
+        
+        let map;
+        let deliveryMarker;
+        let destinationMarker;
+        let pickupMarker;
+        let directionsService;
+        let directionsRenderer;
+        
+        // Mock Map Implementation - No Google Maps API required
+        function initMap() {
+            console.log("Initializing mock map implementation");
+            
+            // Create a mock map element with some basic styling
+            const mapElement = document.getElementById('map');
+            mapElement.style.backgroundColor = '#e5e3df';
+            mapElement.style.position = 'relative';
+            mapElement.innerHTML = `
+                <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center;">
+                    <h3>Map View Disabled</h3>
+                    <p>Google Maps integration temporarily disabled</p>
+                    <p>Tracking data is still being updated below</p>
+                </div>
+            `;
+            
+            // Create mock objects to prevent errors
+            map = {
+                setCenter: function() { console.log("Mock map.setCenter called"); }
+            };
+            
+            deliveryMarker = {
+                setPosition: function() { console.log("Mock deliveryMarker.setPosition called"); }
+            };
+            
+            destinationMarker = {
+                setPosition: function() { console.log("Mock destinationMarker.setPosition called"); }
+            };
+            
+            pickupMarker = {
+                setPosition: function() { console.log("Mock pickupMarker.setPosition called"); }
+            };
+            
+            directionsService = {
+                route: function(request, callback) { 
+                    console.log("Mock directionsService.route called"); 
+                    callback(null, "ZERO_RESULTS");
+                }
+            };
+            
+            directionsRenderer = {
+                setDirections: function() { console.log("Mock directionsRenderer.setDirections called"); }
+            };
+            
+            // Fetch tracking data immediately and then every 10 seconds
+            fetchTrackingData();
+            setInterval(fetchTrackingData, 10000);
+        }
+        
+        // Call initMap directly - no need to wait for Google Maps API
+        document.addEventListener('DOMContentLoaded', initMap);
+        
+        // Fetch tracking data from the API
+        function fetchTrackingData() {
+            fetch(`/api/v1/deliveries/${deliveryId}/tracking`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        updateTrackingInfo(data.data);
+                    } else {
+                        document.getElementById('status').textContent = 'Error: ' + data.message;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching tracking data:', error);
+                    document.getElementById('status').textContent = 'Error: Could not fetch tracking data';
+                });
+        }
+        
+        // Update the tracking information on the page
+        function updateTrackingInfo(data) {
+            document.getElementById('orderId').textContent = data.deliveryId;
+            document.getElementById('status').textContent = data.status;
+            
+            // Update pickup point
+            if (data.pickupPoint) {
+                document.getElementById('pickup').textContent = data.pickupPoint.name;
+                pickupMarker.setPosition({
+                    lat: data.pickupPoint.latitude,
+                    lng: data.pickupPoint.longitude
+                });
+            }
+            
+            // Update destination
+            if (data.destination) {
+                document.getElementById('destination').textContent = data.destination.address || 'Not specified';
+                if (data.destination.latitude && data.destination.longitude) {
+                    destinationMarker.setPosition({
+                        lat: data.destination.latitude,
+                        lng: data.destination.longitude
+                    });
+                }
+            }
+            
+            // Update delivery person
+            if (data.deliveryPerson) {
+                document.getElementById('deliveryPerson').textContent = data.deliveryPerson.name || 'Not assigned';
+                document.getElementById('vehicle').textContent = data.deliveryPerson.vehicleType || 'N/A';
+            } else {
+                document.getElementById('deliveryPerson').textContent = 'Not assigned';
+                document.getElementById('vehicle').textContent = 'N/A';
+            }
+            
+            // Update current location
+            if (data.currentLocation) {
+                // Only update if we have valid coordinates
+                if (data.currentLocation.latitude && data.currentLocation.longitude) {
+                    deliveryMarker.setPosition({
+                        lat: data.currentLocation.latitude,
+                        lng: data.currentLocation.longitude
+                    });
+                    
+                    // Center map on current location
+                    map.setCenter({
+                        lat: data.currentLocation.latitude,
+                        lng: data.currentLocation.longitude
+                    });
+                }
+            }
+            
+            // Update ETA
+            if (data.eta) {
+                const eta = new Date(data.eta);
+                document.getElementById('eta').textContent = eta.toLocaleTimeString();
+            } else {
+                document.getElementById('eta').textContent = 'Calculating...';
+            }
+            
+            // Update distance
+            if (data.remainingDistance) {
+                const distanceInKm = (data.remainingDistance / 1000).toFixed(1);
+                document.getElementById('distance').textContent = distanceInKm + ' km';
+            } else {
+                document.getElementById('distance').textContent = 'Calculating...';
+            }
+            
+            // Draw route from current location to destination only if we have both
+            if (data.currentLocation && data.destination && 
+                data.currentLocation.latitude && data.currentLocation.longitude && 
+                data.destination.latitude && data.destination.longitude) {
+                
+                const request = {
+                    origin: {
+                        lat: data.currentLocation.latitude,
+                        lng: data.currentLocation.longitude
+                    },
+                    destination: {
+                        lat: data.destination.latitude,
+                        lng: data.destination.longitude
+                    },
+                    travelMode: 'DRIVING'
+                };
+                
+                directionsService.route(request, function(result, status) {
+                    if (status === 'OK') {
+                        directionsRenderer.setDirections(result);
+                    }
+                });
+            }
+        }
+    </script>
+    <!-- Google Maps API call commented out -->
+    <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD-9tSrke72PouQMnMX-a7eZSW0jkFMBWY&callback=initMap" async defer></script> -->
+    <!-- Note: Google Maps integration temporarily disabled -->
+</body>
+</html> 

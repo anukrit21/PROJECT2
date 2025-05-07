@@ -1,0 +1,30 @@
+{
+  "properties": [
+    {
+      "name": "spring.security.jwt.secret",
+      "type": "java.lang.String",
+      "description": "Secret key used for JWT token signing"
+    },
+    {
+      "name": "spring.security.jwt.expiration",
+      "type": "java.lang.Long",
+      "description": "JWT token expiration time in milliseconds"
+    },
+    {
+      "name": "spring.security.jwt.refresh-expiration",
+      "type": "java.lang.Long",
+      "description": "JWT refresh token expiration time in milliseconds"
+    },
+    {
+      "name": "management.endpoints.web.exposure.include",
+      "type": "java.lang.String",
+      "description": "List of actuator endpoints to expose"
+    },
+    {
+      "name": "app.name",
+      "type": "java.lang.String",
+      "description": "Application display name"
+    }
+  ],
+  "hints": []
+} 

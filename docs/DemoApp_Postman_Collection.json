@@ -1,0 +1,277 @@
+{
+  "info": {
+    "_postman_id": "a65d7b2c-f958-4a82-b0c1-d8e3a5efdaeb",
+    "name": "DemoApp API Collection",
+    "description": "A collection of API endpoints for the DemoApp, including the new recommendation services.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Recommendations",
+      "description": "Endpoints related to the mess recommendation system",
+      "item": [
+        {
+          "name": "Get Mess Recommendations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/recommendations/messes?category=Dinner&cuisine=North Indian",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "recommendations",
+                "messes"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Dinner",
+                  "description": "Food category"
+                },
+                {
+                  "key": "cuisine",
+                  "value": "North Indian",
+                  "description": "Cuisine type"
+                }
+              ]
+            },
+            "description": "Get mess recommendations based on category and cuisine filters."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Test Recommendations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/recommendations/test",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "recommendations",
+                "test"
+              ]
+            },
+            "description": "Get sample recommendation data for testing purposes."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Breakfast Recommendations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/recommendations/messes?category=Breakfast&cuisine=All",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "recommendations",
+                "messes"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Breakfast",
+                  "description": "Food category"
+                },
+                {
+                  "key": "cuisine",
+                  "value": "All",
+                  "description": "Cuisine type"
+                }
+              ]
+            },
+            "description": "Get breakfast recommendations across all cuisines."
+          },
+          "response": []
+        },
+        {
+          "name": "Get South Indian Recommendations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/recommendations/messes?category=All&cuisine=South Indian",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "recommendations",
+                "messes"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "All",
+                  "description": "Food category"
+                },
+                {
+                  "key": "cuisine",
+                  "value": "South Indian",
+                  "description": "Cuisine type"
+                }
+              ]
+            },
+            "description": "Get South Indian cuisine recommendations across all categories."
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Recommendations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:8080/api/recommendations/messes?category=All&cuisine=All",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8080",
+              "path": [
+                "api",
+                "recommendations",
+                "messes"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "All",
+                  "description": "Food category"
+                },
+                {
+                  "key": "cuisine",
+                  "value": "All",
+                  "description": "Cuisine type"
+                }
+              ]
+            },
+            "description": "Get all available recommendations without any filters."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Mock API Server",
+      "description": "Endpoints for the mock API server running on port 3000",
+      "item": [
+        {
+          "name": "Get Mock Recommendations",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/api/recommendations/messes?category=Dinner&cuisine=North Indian",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "recommendations",
+                "messes"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Dinner",
+                  "description": "Food category"
+                },
+                {
+                  "key": "cuisine",
+                  "value": "North Indian",
+                  "description": "Cuisine type"
+                }
+              ]
+            },
+            "description": "Get mock recommendation data from the mock API server."
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ]
+} 
